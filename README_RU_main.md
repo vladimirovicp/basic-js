@@ -1,5 +1,6 @@
 # Basic JS
 
+[link youtube](https://www.youtube.com/watch?v=bBHY36VVNDE&t=1095s)
 
 ### **02 Углеродное датирование**
 
