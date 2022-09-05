@@ -14,11 +14,16 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 function transform(arr) {
+
+    if(!Array.isArray(arr)){
+        throw new Error('\'arr\' parameter must be an instance of the Array!');
+    }
+
   let result = [];
   let bool = true;
 
   arr.forEach((el,index) => {
-      if(typeof el === 'number' && bool){
+      if(el === '--discard-next'|| el === '--discard-prev' || el === '--double-next' || el === '--double-prev'  && bool){
         result.push(el);
       } else {
 
@@ -27,12 +32,17 @@ function transform(arr) {
           switch(el){
             case '--discard-next': bool = false;
             break;
-            case '--discard-prev': result.pop();
+              case '--discard-prev': if ( arr[index-1] === result.slice(-1)){result.pop();}
             break;
             case '--double-next': if(arr[index + 1]){result.push(arr[index + 1]);}
             break;
             case '--double-prev': if(arr[index-1]){result.push(arr[index-1])};
             break;
+
+              // case '--double-next': arr[index + 1] === undefined ? result = el  : result.push(arr[index + 1])
+              //     break;
+              // case '--double-prev': arr[index-1] === undefined ? result = el  : result.push(arr[index-1])
+              //     break;
           }
         }
       } else {
@@ -41,6 +51,9 @@ function transform(arr) {
       }
 
   });
+  return result;
+
+
 }
 
 module.exports = {
