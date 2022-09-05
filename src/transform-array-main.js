@@ -11,32 +11,34 @@
  *
  */
 function transform(arr) {
-  let commands;
+  // let commands;
   let result = [];
+  let bool = true;
 
-  arr.forEach(el =>{
-    if (typeof el !== 'number'){
-      commands = el;
-    }
-  })
+  arr.forEach((el,index) => {
+      if(typeof el === 'number' && bool){
+        result.push(el);
+      } else {
 
-  if( commands === '--double-next'){
-      result = arr.map( (el,key) => {
-        if (el === '--double-next'){
-          return arr[key+1];
-        } else{
-          return el;
+        if (bool){
+        if(typeof el !== 'number'){
+          switch(el){
+            case '--discard-next': bool = false;
+            break;
+            case '--discard-prev': result.pop();
+            break;
+            case '--double-next': if(arr[index + 1]){result.push(arr[index + 1]);}
+            break;
+            case '--double-prev': if(arr[index-1]){result.push(arr[index-1])};
+            break;
+          }
         }
-      })
-  }
-
-  if( commands === '--discard-prev'){
-    result = arr.filter( (el,key) => {
-      if (!(el === '--discard-prev' || arr[key+1] === '--discard-prev')){
-        return el;
+      } else {
+        bool = true;
       }
-    })
-  }
+      }
+
+  });
 
   console.log(result);
 
@@ -44,4 +46,5 @@ function transform(arr) {
 
 
 // transform([1, 2, 3, '--double-next', 4, 5]);
-transform([1, 2, 3, '--discard-prev', 4, 5]);
+// transform([1, 2, 3, '--discard-prev', 4, 5]);
+transform([1, 2, 3, '--discard-next', 4, 5]);
