@@ -23,8 +23,8 @@ function transform(arr) {
   let bool = true;
 
   arr.forEach((el,index) => {
-      if(el === '--discard-next'|| el === '--discard-prev' || el === '--double-next' || el === '--double-prev'  && bool){
-        result.push(el);
+      if( !(el === '--discard-next'|| el === '--discard-prev' || el === '--double-next' || el === '--double-prev') && bool){
+          result.push(el);
       } else {
 
         if (bool){
@@ -32,11 +32,11 @@ function transform(arr) {
           switch(el){
             case '--discard-next': bool = false;
             break;
-              case '--discard-prev': if ( arr[index-1] === result.slice(-1)){result.pop();}
+              case '--discard-prev': result.pop();
             break;
-            case '--double-next': if(arr[index + 1]){result.push(arr[index + 1]);}
+            case '--double-next': if(arr[index + 1] !== undefined){result.push(arr[index + 1]);}
             break;
-            case '--double-prev': if(arr[index-1]){result.push(arr[index-1])};
+              case '--double-prev': if(arr[index - 1] !== undefined && arr[index - 2] !== '--discard-next'){result.push(arr[index-1])};
             break;
 
               // case '--double-next': arr[index + 1] === undefined ? result = el  : result.push(arr[index + 1])
@@ -51,7 +51,11 @@ function transform(arr) {
       }
 
   });
+
+
+
   return result;
+
 
 
 }
