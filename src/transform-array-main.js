@@ -32,7 +32,7 @@ function transform(arr) {
               switch(el){
                 case '--discard-next': bool = false;
                 break;
-                case '--discard-prev': result.pop();
+                case '--discard-prev':  if(arr[index - 2] !== '--discard-next'){result.pop()};
                 break;
                   case '--double-next': if(arr[index + 1] !== undefined){result.push(arr[index + 1]);}
                       break;
@@ -43,6 +43,7 @@ function transform(arr) {
       } else {
         bool = true;
       }
+        console.log(result)
       }
 
   });
@@ -65,7 +66,7 @@ function transform(arr) {
 
 //[1, 2, 3, 1337, 1337, 1337, 4, 5]
 
-transform([1, 2, 3, '--discard-next', 1337, '--double-prev', 4, 5])
+transform([1, 2, 3, '--discard-next', 1337, '--discard-prev', 4, 5])
 
 //[1, 2, 3, 4, 5]
 

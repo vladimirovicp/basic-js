@@ -32,7 +32,7 @@ function transform(arr) {
           switch(el){
             case '--discard-next': bool = false;
             break;
-              case '--discard-prev': result.pop();
+              case '--discard-prev':  if(arr[index - 2] !== '--discard-next'){result.pop()};
             break;
             case '--double-next': if(arr[index + 1] !== undefined){result.push(arr[index + 1]);}
             break;
