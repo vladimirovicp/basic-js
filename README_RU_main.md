@@ -3,7 +3,7 @@
 [link youtube](https://www.youtube.com/watch?v=bBHY36VVNDE&t=1095s)
 
 
-### **08 Рекурсивный вычислитель глубины**
+### **08 Рекурсивный вычислитель глубины =**
 
 ![Идти глубже](https://i.imgur.com/k7lADiM.jpg)  
 Ваша задача — реализовать класс `DepthCalculator` с методом `calculateDepth`, который принимает массив и возвращает его **глубину**.
