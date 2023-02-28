@@ -27,7 +27,7 @@ for (let i=0; i<alfavit.length; i++){
   alfavit_code[alfavit[i]] = i;
 }
 
-console.log(alfavit_code)
+// console.log(alfavit_code)
 
 
 
@@ -42,9 +42,15 @@ class VigenereCipheringMachine {
     //throw new NotImplementedError('Not implemented');
     // remove line with error and write your code here
 
-    if( !message || !key){
-      throw new Error('Incorrect arguments!');
-    }
+    let result ='';
+
+    // if( !message || !key){
+    //   throw new Error('Incorrect arguments!');
+    // }
+
+    message = message.toUpperCase()
+    key = key.toUpperCase()
+
 
 
 
@@ -56,6 +62,7 @@ class VigenereCipheringMachine {
       console.log(this.reverse)
     }
 
+    console.log(result)
   }
   decrypt() {
     //throw new NotImplementedError('Not implemented');
@@ -70,8 +77,8 @@ class VigenereCipheringMachine {
 
 const directMachine = new VigenereCipheringMachine();
 
-directMachine.encrypt()
+directMachine.encrypt('attack at dawn!', 'alphonse')
 
-const reverseMachine = new VigenereCipheringMachine(false);
-
-reverseMachine.encrypt()
+// const reverseMachine = new VigenereCipheringMachine(false);
+//
+// reverseMachine.encrypt()
