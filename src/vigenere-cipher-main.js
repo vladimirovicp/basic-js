@@ -27,7 +27,7 @@ for (let i=0; i<alfavit.length; i++){
   alfavit_code[alfavit[i]] = i;
 }
 
-// console.log(alfavit_code)
+//console.log(alfavit_code)
 
 
 
@@ -50,6 +50,34 @@ class VigenereCipheringMachine {
 
     message = message.toUpperCase()
     key = key.toUpperCase()
+
+    console.log(message.length)
+    const repeatCount = Math.ceil(message.length/key.length)
+    key = key.repeat(repeatCount)
+
+
+    // console.log(message[0])
+    // console.log(alfavit_code[message[0]])
+
+    let alfavitCodeCount = 0;
+
+    for (let i=0; i<message.length; i++){
+
+      if (alfavit_code[message[i]]){
+        console.log(alfavitCodeCount, i, message[i], key[alfavitCodeCount])
+        //console.log(message[i])
+        let number = alfavit_code[message[i]] + alfavit_code[key[alfavitCodeCount]];
+        alfavitCodeCount++;
+        if(number > alfavit.length){
+          number -= alfavit.length
+        }
+        result += alfavit[number]
+      } else {
+        result += message[i]
+      }
+
+    }
+
 
 
 
