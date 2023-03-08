@@ -71,9 +71,12 @@ class VigenereCipheringMachine {
           alfavitCodeCount = 0
         }
 
-        if(number > alfavit.length){
+        if(number >= alfavit.length){
           number -= alfavit.length
         }
+
+        console.log(number, alfavit[number])
+
         result += alfavit[number]
       } else {
         result += message[i]
@@ -99,6 +102,7 @@ class VigenereCipheringMachine {
     let alfavitCodeCount = 0;
 
     for (let i=0; i<message.length; i++){
+
       if (alfavit_code[message[i]] || alfavit_code[message[i]] === 0){
         let number = alfavit_code[message[i]] - alfavit_code[key[alfavitCodeCount]];
         alfavitCodeCount++;
@@ -113,6 +117,8 @@ class VigenereCipheringMachine {
         if(number < 0){
           number += alfavit.length
         }
+
+
 
         result += alfavit[number]
       } else {
@@ -141,7 +147,9 @@ const directMachine = new VigenereCipheringMachine();
 
 //console.log(directMachine.encrypt('attack at dawn!', 'alphonse'));
 
-console.log(directMachine.decrypt('AEIHQX SX DLLU!', 'alphonse'));
+//console.log(directMachine.decrypt('AEIHQX SX DLLU!', 'alphonse'));
+
+console.log(directMachine.encrypt('Samelengthkey', 'Samelengthkey')) // 'KAYIWIAMMOUIW'
 
 // const reverseMachine = new VigenereCipheringMachine(false);
 //

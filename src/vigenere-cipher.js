@@ -33,6 +33,11 @@ class VigenereCipheringMachine {
   }
 
   encrypt(message, key) {
+
+    if( !message || !key){
+      throw new Error('Incorrect arguments!');
+    }
+
     let result = '';
 
     message = message.toUpperCase()
@@ -53,7 +58,7 @@ class VigenereCipheringMachine {
           alfavitCodeCount = 0
         }
 
-        if (number > alfavit.length) {
+        if (number >= alfavit.length) {
           number -= alfavit.length
         }
         result += alfavit[number]
@@ -70,6 +75,12 @@ class VigenereCipheringMachine {
   }
 
   decrypt(message, key) {
+
+    if( !message || !key){
+      throw new Error('Incorrect arguments!');
+    }
+
+
     let result = '';
     message = message.toUpperCase()
     key = key.toUpperCase()
@@ -90,7 +101,7 @@ class VigenereCipheringMachine {
           alfavitCodeCount = 0
         }
 
-        if (number > alfavit.length) {
+        if (number >= alfavit.length) {
           number -= alfavit.length
         }
         if (number < 0) {
