@@ -51,7 +51,7 @@ class VigenereCipheringMachine {
     message = message.toUpperCase()
     key = key.toUpperCase()
 
-    console.log(message.length)
+    //console.log(message.length)
     const repeatCount = Math.ceil(message.length/key.length)
     key = key.repeat(repeatCount)
 
@@ -63,11 +63,14 @@ class VigenereCipheringMachine {
 
     for (let i=0; i<message.length; i++){
 
-      if (alfavit_code[message[i]]){
-        console.log(alfavitCodeCount, i, message[i], key[alfavitCodeCount])
-        //console.log(message[i])
+      if (alfavit_code[message[i]] || alfavit_code[message[i]] === 0){
+
         let number = alfavit_code[message[i]] + alfavit_code[key[alfavitCodeCount]];
         alfavitCodeCount++;
+        if( alfavitCodeCount === key.length){
+          alfavitCodeCount = 0
+        }
+
         if(number > alfavit.length){
           number -= alfavit.length
         }
@@ -75,26 +78,53 @@ class VigenereCipheringMachine {
       } else {
         result += message[i]
       }
-
+    }
+    if (this.reverse === false){
+      result = [...result].reverse().join("")
     }
 
+    return result;
+  }
+  decrypt(message,key) {
 
-
-
-
-
-
+    let result ='';
+    message = message.toUpperCase()
+    key = key.toUpperCase()
 
 
     if (this.reverse === false){
-      console.log(this.reverse)
+      message = [...message].reverse().join("")
     }
 
-    console.log(result)
-  }
-  decrypt() {
-    //throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    let alfavitCodeCount = 0;
+
+    for (let i=0; i<message.length; i++){
+      if (alfavit_code[message[i]] || alfavit_code[message[i]] === 0){
+        let number = alfavit_code[message[i]] - alfavit_code[key[alfavitCodeCount]];
+        alfavitCodeCount++;
+
+        if( alfavitCodeCount === key.length){
+          alfavitCodeCount = 0
+        }
+
+        if(number > alfavit.length){
+          number -= alfavit.length
+        }
+        if(number < 0){
+          number += alfavit.length
+        }
+
+        result += alfavit[number]
+      } else {
+        result += message[i]
+      }
+    }
+
+    return result
+
+
+
+
   }
 }
 
@@ -103,9 +133,15 @@ class VigenereCipheringMachine {
 // };
 
 
+
+
 const directMachine = new VigenereCipheringMachine();
 
-directMachine.encrypt('attack at dawn!', 'alphonse')
+// directMachine.encrypt('attack at dawn!', 'alphonse')  //AEIHQX SX DLLU!
+
+//console.log(directMachine.encrypt('attack at dawn!', 'alphonse'));
+
+console.log(directMachine.decrypt('AEIHQX SX DLLU!', 'alphonse'));
 
 // const reverseMachine = new VigenereCipheringMachine(false);
 //

@@ -19,17 +19,93 @@ const { NotImplementedError } = require('../extensions/index.js');
  * reverseMachine.decrypt('AEIHQX SX DLLU!', 'alphonse') => '!NWAD TA KCATTA'
  * 
  */
-class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
-  }
+const alfavit = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';  //26 букв
+let alfavit_code = [];
+
+for (let i=0; i<alfavit.length; i++){
+  alfavit_code[alfavit[i]] = i;
 }
 
+class VigenereCipheringMachine {
+
+  constructor(reverse) {
+    this.reverse = reverse;
+  }
+
+  encrypt(message, key) {
+    let result = '';
+
+    message = message.toUpperCase()
+    key = key.toUpperCase()
+
+    const repeatCount = Math.ceil(message.length / key.length)
+    key = key.repeat(repeatCount)
+
+    let alfavitCodeCount = 0;
+
+    for (let i = 0; i < message.length; i++) {
+
+      if (alfavit_code[message[i]] || alfavit_code[message[i]] === 0) {
+
+        let number = alfavit_code[message[i]] + alfavit_code[key[alfavitCodeCount]];
+        alfavitCodeCount++;
+        if (alfavitCodeCount === key.length) {
+          alfavitCodeCount = 0
+        }
+
+        if (number > alfavit.length) {
+          number -= alfavit.length
+        }
+        result += alfavit[number]
+      } else {
+        result += message[i]
+      }
+    }
+    if (this.reverse === false) {
+      result = [...result].reverse().join("")
+    }
+
+    return result;
+
+  }
+
+  decrypt(message, key) {
+    let result = '';
+    message = message.toUpperCase()
+    key = key.toUpperCase()
+
+
+    if (this.reverse === false) {
+      message = [...message].reverse().join("")
+    }
+
+    let alfavitCodeCount = 0;
+
+    for (let i = 0; i < message.length; i++) {
+      if (alfavit_code[message[i]] || alfavit_code[message[i]] === 0) {
+        let number = alfavit_code[message[i]] - alfavit_code[key[alfavitCodeCount]];
+        alfavitCodeCount++;
+
+        if (alfavitCodeCount === key.length) {
+          alfavitCodeCount = 0
+        }
+
+        if (number > alfavit.length) {
+          number -= alfavit.length
+        }
+        if (number < 0) {
+          number += alfavit.length
+        }
+
+        result += alfavit[number]
+      } else {
+        result += message[i]
+      }
+    }
+    return result
+  }
+
+}
 module.exports = {
   VigenereCipheringMachine
 };
