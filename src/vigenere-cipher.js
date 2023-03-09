@@ -34,14 +34,17 @@ class VigenereCipheringMachine {
 
   encrypt(message, key) {
 
-    if( !message || !key){
-      throw new Error('Incorrect arguments!');
-    }
+    // if( !message || !key){
+    //   throw new Error('Incorrect arguments!');
+    // }
+
+    if (message === undefined || key === undefined) throw new Error('Incorrect arguments!');
 
     let result = '';
 
     message = message.toUpperCase()
     key = key.toUpperCase()
+    key = key.replace(/\s/g,'');
 
     const repeatCount = Math.ceil(message.length / key.length)
     key = key.repeat(repeatCount)
@@ -76,19 +79,21 @@ class VigenereCipheringMachine {
 
   decrypt(message, key) {
 
-    if( !message || !key){
-      throw new Error('Incorrect arguments!');
-    }
+    // if( !message || !key){
+    //   throw new Error('Incorrect arguments!');
+    // }
+    if (message === undefined || key === undefined) throw new Error('Incorrect arguments!');
 
 
     let result = '';
     message = message.toUpperCase()
     key = key.toUpperCase()
+    key = key.replace(/\s/g,'')
 
 
-    if (this.reverse === false) {
-      message = [...message].reverse().join("")
-    }
+    // if (this.reverse === false) {
+    //   message = [...message].reverse().join("")
+    // }
 
     let alfavitCodeCount = 0;
 
@@ -113,6 +118,12 @@ class VigenereCipheringMachine {
         result += message[i]
       }
     }
+
+    if (this.reverse === false) {
+      result = [...result].reverse().join("")
+    }
+
+
     return result
   }
 

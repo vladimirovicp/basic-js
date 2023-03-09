@@ -111,7 +111,7 @@ class VigenereCipheringMachine {
           alfavitCodeCount = 0
         }
 
-        if(number > alfavit.length){
+        if(number >= alfavit.length){
           number -= alfavit.length
         }
         if(number < 0){
